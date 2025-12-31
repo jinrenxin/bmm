@@ -12,8 +12,8 @@ export const findManyBookmarksSchema = z.object({
     .transform((v) => v.map((el) => Number(el)))
     .optional(),
   sorterKey: z
-    .enum(['-updateTime', '+updateTime', '-createTime', '+createTime'])
-    .default('-updateTime'),
+    .enum(['manual', '-updateTime', '+updateTime', '-createTime', '+createTime'])
+    .default('manual'),
   limit: z
     .number()
     .or(z.string())

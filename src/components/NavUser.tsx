@@ -11,9 +11,10 @@ export function NavUser() {
   const pageUtil = usePageUtil()
   const isAuthenticated = session.status === 'authenticated'
 
-  function handleSignOut() {
-    signOut({ redirectTo: PageRoutes.INDEX })
+  async function handleSignOut() {
+    await signOut({ redirect: false })
     addToast({ title: '已退出登录' })
+    globalThis.location.assign(PageRoutes.INDEX)
   }
 
   if (!isAuthenticated || !user) {

@@ -1,6 +1,7 @@
 import UserController from '@/controllers/User.controller'
 import { db, schema } from '@/db'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
+import { eq } from 'drizzle-orm'
 import NextAuth, { NextAuthConfig } from 'next-auth'
 import { authConfig } from './config'
 
@@ -38,5 +39,12 @@ export const auth = nextAuthLib.auth
 export async function getAuthedUserId() {
   const session = await auth()
   if (!session) throw new Error('getAuthedUserId() 调用出错')
-  return session.user.id!
+  const userId = session.user.id
+  if (!userId) throw new Error('getAuthedUserId() 调用出错')
+  const user = await db.query.users.findFirst({
+    where: eq(schema.users.id, userId),
+    columns: { id: true },
+  })
+  if (!user) throw new Error('当前登录已失效，请重新登录')
+  return userId
 }

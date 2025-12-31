@@ -3,6 +3,11 @@
 import 'zx/globals'
 import { declareLocalType, exitWithDbClose, loadEnv, testDbConnect } from './utils.mjs'
 
+if (process.platform === 'win32') {
+  $.shell = 'powershell.exe'
+  $.prefix = ''
+}
+
 async function main() {
   await loadEnv()
   await declareLocalType()

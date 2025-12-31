@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx scripts/db-init.mjs && next dev",
+    "dev": "tsx scripts/db-init.mjs && next dev -p 8001",
     "build": "tsx scripts/db-init.mjs -P && next build",
     "start": "tsx scripts/db-init.mjs -P && next start",
     "lint": "next lint",

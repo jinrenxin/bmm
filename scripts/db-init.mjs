@@ -3,6 +3,11 @@
 import 'zx/globals'
 import { dbExecute, declareLocalType, exitWithDbClose, loadEnv, testDbConnect } from './utils.mjs'
 
+if (process.platform === 'win32') {
+  $.shell = 'powershell.exe'
+  $.prefix = ''
+}
+
 // 根据环境变量 process.env.DB_DRIVER 声明 type DB_DRIVER
 
 // 数据库是否已经初始化（通过检测表 publicBookmarks 是否存在）

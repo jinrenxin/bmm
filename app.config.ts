@@ -131,7 +131,7 @@ export const FieldConstraints = {
   MaxLen: {
     DEFAULT: 100,
     TAG_NAME: 20,
-    BOOKMARK_NAME: 50,
+    BOOKMARK_NAME: 100,
     URL: 1000,
     BOOKMARK_DESC: 200,
   },

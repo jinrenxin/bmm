@@ -4,6 +4,7 @@
   <h3 style="font-size: 3rem">BMM</h3>
   <p>收纳、分享、探索优质网站</p>
   <i>BMM / bookmark manager / 你的专属书签管家</i>
+  <i>用AI增加了批量删除、导出html、手动排序的功能，书签名称扩展到100字符</i>
 </div>
 
 <br>
@@ -19,7 +20,6 @@
   <img alt="AI 解析网站" width="680" src="./doc/images/screenshot-ai-analyse.gif">
 
 </div>
-
 
 ## ✨ 功能
 
@@ -103,9 +103,9 @@ BMM 使用 Drizzle ORM 持久化存储数据，当前开箱即用的支持 SQLit
   
   ![vercel-settings-env](./doc/images/vercel-settings-env.png)
 
-  Vercel 上每个项目都会被自动分配一个域名，如 bmm.vercel.app，如果你最终使用这个域名访问 BMM 服务，那么可以不用配置 `AUTH_URL`，否则必须配置该环境变量。
-</details>
+Vercel 上每个项目都会被自动分配一个域名，如 bmm.vercel.app，如果你最终使用这个域名访问 BMM 服务，那么可以不用配置 `AUTH_URL`，否则必须配置该环境变量。
 
+</details>
 
 4. 在 「Deployments 面板」再重新部署一下即可
 
@@ -142,7 +142,6 @@ lcclcc/bmm \
 pnpm start
 
 ```
-
 
 ## 🤖 接入 AI 服务（可选）
 
@@ -217,13 +216,12 @@ Github OAuth App 的 Client ID 和 Client Secret 将分别用作环境变量 `AU
   <br>
   它们的值如何设定，简单来说，通过什么地址访问 BMM 服务，就把该地址作为它们的值，例如：
 
-  - http://localhost:3000 - 本地开发
-  - https://bmm.vercel.app - 部署到 Vercel 的平台上，使用 Vercel 为你分配的域名
-  - https://example.com - 用 nginx 代理了本机地址，线上通过域名访问服务
-  - http://10.1.2.3:3000 - 线上通过 IP:PORT 直接访问服务
-  
-</details>
+- http://localhost:3000 - 本地开发
+- https://bmm.vercel.app - 部署到 Vercel 的平台上，使用 Vercel 为你分配的域名
+- https://example.com - 用 nginx 代理了本机地址，线上通过域名访问服务
+- http://10.1.2.3:3000 - 线上通过 IP:PORT 直接访问服务
 
+</details>
 
 <details>
   <summary>
@@ -255,7 +253,6 @@ Github OAuth App 的 Client ID 和 Client Secret 将分别用作环境变量 `AU
   再次明确：访问项目的地址、Authorization callback URL、AUTH_URL 这三者应该是一致的。
 </details>
 
-
 <details>
   <summary>
     支持其他数据库吗？
@@ -264,4 +261,3 @@ Github OAuth App 的 Client ID 和 Client Secret 将分别用作环境变量 `AU
   <br>
   借助 drizzle-orm 的能力，本项目可以快速接入 MySQL 数据库。
 </details>
-

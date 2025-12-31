@@ -137,7 +137,14 @@ export default function Page() {
       return
     }
     addToast({ color: 'success', title: '登录成功' })
-    await signIn('credentials', values)
+    const signInRes = await signIn('credentials', { ...values, redirect: false })
+    if (signInRes?.error) {
+      setState({ authError: { title: '登录失败', desc: signInRes.error } })
+      return
+    }
+    globalThis.location.assign(
+      result.data.role === 'admin' ? PageRoutes.INDEX : PageRoutes.User.INDEX
+    )
   }
 
   return (
@@ -174,6 +181,7 @@ export default function Page() {
                 )}
                 <div className="mt-4 text-xs">
                   <button
+                    type="button"
                     className={cn(
                       'text-primary flex-items-center space-x-1 transition-all hover:opacity-80',
                       state.isRegisterMode && 'text-secondary'

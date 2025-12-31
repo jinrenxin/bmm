@@ -69,6 +69,7 @@ export const userBookmarks = pgTable(
     pinyin: varchar('pinyin', { length: FieldConstraints.MaxLen.DEFAULT }),
     description: varchar('description', { length: FieldConstraints.MaxLen.BOOKMARK_DESC }),
     isPinned: boolean('isPinned'),
+    sortOrder: integer('sortOrder').notNull().default(0),
     createdAt: timestamp('createdAt', { mode: 'date' })
       .notNull()
       .$defaultFn(() => new Date()),
