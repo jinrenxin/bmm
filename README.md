@@ -4,7 +4,9 @@
   <h3 style="font-size: 3rem">BMM</h3>
   <p>收纳、分享、探索优质网站</p>
   <i>BMM / bookmark manager / 你的专属书签管家</i>
-  <i>用AI增加了批量删除、导出html、手动排序的功能，书签名称扩展到100字符</i>
+  <p>用AI增加了批量删除、导出html、手动排序的功能</p>
+  <p>修改书签名称扩展到100字符</p>
+  <p>修改登录登出以当前URL为准，而不是指向env中的AUTH_URL</p>
 </div>
 
 <br>
