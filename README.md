@@ -59,6 +59,10 @@
 
 3. 启动项目 `pnpm dev`
 
+4. docker构建 `docker build -t bmm:edit .`
+
+5. docker打包 `docker save -o bmm-edit.tar bmm:edit`
+
 ## 环境变量
 
 具体的环境变量配置可以参考 [.env](./.env) 。
