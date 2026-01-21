@@ -113,6 +113,7 @@ export default function BookmarkListPage(props: BookmarkListPageProps) {
   const dataRef = useRef({ loadingMutable: true })
   const [selectedKeys, setSelectedKeys] = useState<any>(new Set([]))
   const [exporting, setExporting] = useState(false)
+  const [batchDeleting, setBatchDeleting] = useState(false)
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -209,19 +210,24 @@ export default function BookmarkListPage(props: BookmarkListPageProps) {
   }
 
   async function onBatchRemove() {
-    if (!selectedIds.length) return
+    if (!selectedIds.length || batchDeleting) return
+    setBatchDeleting(true)
     const action = isUserSpace ? actDeleteManyUserBookmarks : actDeleteManyPublicBookmarks
-    await runAction(action(selectedIds), {
-      okMsg: `已删除 ${selectedIds.length} 个书签`,
-      onOk() {
-        setSelectedKeys(new Set([]))
-        setState({
-          modals: { ...state.modals, batchDelete: false },
-          pager: { ...state.pager, page: 1 },
-        })
-        refresh()
-      },
-    })
+    try {
+      await runAction(action(selectedIds), {
+        okMsg: `已删除 ${selectedIds.length} 个书签`,
+        onOk() {
+          setSelectedKeys(new Set([]))
+          setState({
+            modals: { ...state.modals, batchDelete: false },
+            pager: { ...state.pager, page: 1 },
+          })
+          refresh()
+        },
+      })
+    } finally {
+      setBatchDeleting(false)
+    }
   }
 
   function onSortingDragEnd(event: DragEndEvent) {
@@ -468,7 +474,10 @@ export default function BookmarkListPage(props: BookmarkListPageProps) {
             {(item) => {
               return (
                 <TableRow key={item.id}>
-                  <TableCell className="flex min-w-8 items-center">
+                  <TableCell
+                    className="flex min-w-8 items-center"
+                    style={{ display: 'table-cell' }}
+                  >
                     <Favicon src={item.icon} showErrorIconOnFailed showSpinner />
                   </TableCell>
                   <TableCell>
@@ -570,7 +579,11 @@ export default function BookmarkListPage(props: BookmarkListPageProps) {
         size="md"
         onClose={() => setState({ modals: { ...state.modals, batchDelete: false } })}
         onOk={onBatchRemove}
-        okButtonProps={{ color: 'danger', isDisabled: !hasSelection }}
+        okButtonProps={{
+          color: 'danger',
+          isDisabled: !hasSelection || batchDeleting,
+          isLoading: batchDeleting,
+        }}
       >
         <div className="space-y-2 text-sm">
           <div>即将删除 {selectedIds.length} 个书签</div>

@@ -130,7 +130,7 @@ export const DEFAULT_PUBLIC_TAG_PAGESIZE = 3 * 4 * 50
 export const FieldConstraints = {
   MaxLen: {
     DEFAULT: 100,
-    TAG_NAME: 20,
+    TAG_NAME: 50,
     BOOKMARK_NAME: 100,
     URL: 1000,
     BOOKMARK_DESC: 200,
